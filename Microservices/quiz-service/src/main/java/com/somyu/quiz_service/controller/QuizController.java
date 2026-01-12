@@ -1,8 +1,10 @@
 package com.somyu.quiz_service.controller;
 
-import com.somyu.quizapp.model.QuestionWrapper;
-import com.somyu.quizapp.model.Response;
-import com.somyu.quizapp.service.QuizService;
+
+import com.somyu.quiz_service.model.QuestionDTO;
+import com.somyu.quiz_service.model.QuestionWrapper;
+import com.somyu.quiz_service.model.Response;
+import com.somyu.quiz_service.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +19,12 @@ public class QuizController {
     QuizService quizService;
 
     @PostMapping("create")
-    public ResponseEntity<String> createQuiz(@RequestParam String category, @RequestParam Integer noOfQuestion, @RequestParam String title) {
-    return quizService.createQuiz(category, noOfQuestion, title);
+    public ResponseEntity<String> createQuiz(@RequestBody QuestionDTO questionDTO) {
+    return quizService.createQuiz(questionDTO);
     }
 
     @GetMapping("getQuiz/{id}")
     public ResponseEntity<List<QuestionWrapper>> getQuizById(@PathVariable Integer id) {
-
         return quizService.getQuizById(id);
     }
 
