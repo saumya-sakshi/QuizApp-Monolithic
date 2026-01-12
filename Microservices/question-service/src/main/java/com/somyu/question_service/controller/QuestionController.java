@@ -6,6 +6,7 @@ import com.somyu.question_service.model.QuestionWrapper;
 import com.somyu.question_service.model.Response;
 import com.somyu.question_service.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,9 @@ public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
+
+    @Autowired
+    Environment environment;
 
     @GetMapping("allQuestions")
     public ResponseEntity<List<Question>> getAllQuestion(){
@@ -59,6 +63,7 @@ public class QuestionController {
 
     @PostMapping("getQuestions")
     public ResponseEntity<List<QuestionWrapper>> getQuestions(@RequestBody List<Integer> ids){
+        //System.out.println(environment.getProperty("local.server.port"));
         return questionService.getQuestions(ids);
     }
 
